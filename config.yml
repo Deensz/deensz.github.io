@@ -2,7 +2,7 @@ backend:
   name: github
   repo: deensz/deensz.github.io
   branch: main
-  app_id: 3252567
+  app_id: Ov23lizEY6InHYihcPCG
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
