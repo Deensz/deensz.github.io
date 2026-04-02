@@ -1,0 +1,21 @@
+{
+  "projects": [
+    {
+      "title": "Aplikasi POS Kasir",
+      "description": "Sistem Point of Sales lengkap untuk usaha kuliner dengan fitur transaksi kasir real-time, manajemen stok otomatis, dan laporan keuangan terintegrasi.",
+      "image": "https://i.ibb.co.com/Lzbm69Fw/Screenshot-2026-02-11-224915.png",
+      "features": [
+        "Transaksi Kasir Realtime",
+        "Manajemen Stok Otomatis",
+        "Laporan Keuangan Lengkap",
+        "Cetak Struk Otomatis"
+      ],
+      "stack": [
+        "CodeIgniter 4",
+        "MySQL",
+        "PHP",
+        "JavaScript"
+      ]
+    }
+  ]
+}

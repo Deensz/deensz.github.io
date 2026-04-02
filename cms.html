@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website CMS Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .fade-enter-active, .fade-leave-active { transition: opacity 0.2s ease; }
+        .fade-enter-from, .fade-leave-to { opacity: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 flex h-screen overflow-hidden">
+    <div id="app" class="flex flex-1 w-full" v-cloak>
+        
+        <!-- Sidebar Navigation -->
+        <div class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl z-10 h-full">
+            <div class="p-6 border-b border-slate-800">
+                <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">Panel Admin</h1>
+                <p class="text-xs text-slate-400 mt-1">Data-Driven Generator</p>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto py-4">
+                <nav class="space-y-1 px-3">
+                    <button v-for="tab in tabs" :key="tab.id" @click="activeTab = tab.id"
+                        :class="[activeTab === tab.id ? 'bg-blue-600 text-white shadow-md' : 'text-slate-300 hover:bg-slate-800 hover:text-white', 'group w-full flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all']">
+                        <span class="mr-3">{{ tab.icon }}</span>
+                        {{ tab.name }}
+                    </button>
+                </nav>
+            </div>
+            
+            <div class="p-4 border-t border-slate-800">
+                <button @click="downloadJson" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-3 rounded-xl font-bold transition-colors shadow-lg flex items-center justify-center gap-2">
+                    ⬇️ Download site.json
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 overflow-y-auto bg-slate-50 relative h-full">
+            
+            <!-- Loading Indicator -->
+            <div v-if="loading" class="absolute inset-0 bg-slate-50 z-50 flex items-center justify-center">
+                <div class="text-center">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <p class="text-slate-500 font-medium">Memuat konfigurasi web...</p>
+                </div>
+            </div>
+
+            <div v-else class="max-w-5xl mx-auto p-8">
+                <Transition name="fade" mode="out-in">
+                    
+                    <!-- HERO TAB -->
+                    <div v-if="activeTab === 'hero'" key="hero" class="space-y-6">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">Pengaturan Beranda (Hero)</h2>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label class="block text-sm font-medium mb-1">Headline 1</label>
+                                <input v-model="site.hero.headline_1" class="w-full border rounded-lg p-2"></div>
+                                <div><label class="block text-sm font-medium mb-1">Headline 2 (Warna Biru)</label>
+                                <input v-model="site.hero.headline_2" class="w-full border rounded-lg p-2"></div>
+                                <div><label class="block text-sm font-medium mb-1">Headline 3</label>
+                                <input v-model="site.hero.headline_3" class="w-full border rounded-lg p-2"></div>
+                                <div><label class="block text-sm font-medium mb-1">Foto Profil Kecil (URL)</label>
+                                <input v-model="site.hero.profile_image" class="w-full border rounded-lg p-2"></div>
+                                <div class="col-span-2"><label class="block text-sm font-medium mb-1">Deskripsi Utama</label>
+                                <textarea v-model="site.hero.subtitle" rows="3" class="w-full border rounded-lg p-2"></textarea></div>
+                                <div class="col-span-2"><label class="block text-sm font-medium mb-1">Foto Utama Besar (URL)</label>
+                                <input v-model="site.hero.large_image" class="w-full border rounded-lg p-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABOUT TAB -->
+                    <div v-else-if="activeTab === 'about'" key="about" class="space-y-6">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">Tentang Saya</h2>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-6">
+                            <label class="block text-sm font-medium mb-1">Deskripsi Profil</label>
+                            <textarea v-model="site.about.description" rows="4" class="w-full border rounded-lg p-2 mb-4"></textarea>
+                            
+                            <h3 class="font-bold text-lg mb-3">Biodata Singkat</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><label class="block text-xs mb-1">Nama</label> <input v-model="site.about.details.nama" class="w-full border rounded p-2 text-sm"></div>
+                                <div><label class="block text-xs mb-1">Profesi</label> <input v-model="site.about.details.profesi" class="w-full border rounded p-2 text-sm"></div>
+                                <div><label class="block text-xs mb-1">Lokasi</label> <input v-model="site.about.details.lokasi" class="w-full border rounded p-2 text-sm"></div>
+                                <div><label class="block text-xs mb-1">Umur</label> <input v-model="site.about.details.umur" class="w-full border rounded p-2 text-sm"></div>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Riwayat Pendidikan</h3>
+                        <div v-for="(edu, i) in site.about.education" :key="i" class="bg-white p-4 rounded-xl border mb-4 relative">
+                            <button @click="site.about.education.splice(i,1)" class="absolute top-2 right-2 text-red-500 font-bold">✕</button>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div><label class="text-xs">Status / Tahun</label><input v-model="edu.status" class="w-full border rounded p-1 text-sm"></div>
+                                <div><label class="text-xs">Gelar / Jurusan</label><input v-model="edu.degree" class="w-full border rounded p-1 text-sm"></div>
+                                <div><label class="text-xs">Kampus / Sekolah</label><input v-model="edu.school" class="w-full border rounded p-1 text-sm"></div>
+                                <div><label class="text-xs">Fokus / Detail</label><input v-model="edu.desc" class="w-full border rounded p-1 text-sm"></div>
+                            </div>
+                        </div>
+                        <button @click="site.about.education.push({})" class="text-blue-600 font-bold">+ Tambah Pendidikan</button>
+                    </div>
+
+                    <!-- SERVICES TAB -->
+                    <div v-else-if="activeTab === 'services'" key="services" class="space-y-6">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">Layanan (Services)</h2>
+                        <div v-for="(srv, i) in site.services" :key="i" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-6 relative">
+                            <button @click="site.services.splice(i,1)" class="absolute top-4 right-4 text-red-500 font-bold">✕</button>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="col-span-2"><label class="text-sm font-medium">Judul Layanan</label><input v-model="srv.title" class="w-full border rounded p-2"></div>
+                                <div class="col-span-2"><label class="text-sm font-medium">Deskripsi</label><textarea v-model="srv.description" rows="2" class="w-full border rounded p-2"></textarea></div>
+                                <div class="col-span-2"><label class="text-sm font-medium">Item List (Pisahkan dgn koma)</label>
+                                    <input :value="srv.items.join(', ')" @input="srv.items = $event.target.value.split(',').map(x=>x.trim())" class="w-full border rounded p-2">
+                                </div>
+                            </div>
+                        </div>
+                        <button @click="site.services.push({title:'', description:'', items:[]})" class="py-3 px-6 bg-slate-200 rounded-xl font-bold">+ Tambah Layanan</button>
+                    </div>
+
+                    <!-- SKILLS TAB -->
+                    <div v-else-if="activeTab === 'skills'" key="skills" class="space-y-6">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">Keahlian (Skills)</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="bg-white p-6 rounded-2xl border">
+                                <h3 class="font-bold text-lg mb-4">Technical Skills (% Bar)</h3>
+                                <div v-for="(skill, i) in site.skills.technical" :key="i" class="flex gap-2 mb-2 items-center">
+                                    <input v-model="skill.name" class="flex-1 border rounded p-1" placeholder="Nama">
+                                    <input v-model.number="skill.percent" type="number" class="w-20 border rounded p-1 text-center" placeholder="%">
+                                    <button @click="site.skills.technical.splice(i,1)" class="text-red-500 font-bold w-6">✕</button>
+                                </div>
+                                <button @click="site.skills.technical.push({name:'', percent:0})" class="text-blue-600 font-bold mt-2">+ Tambah Skill Lengkap</button>
+                                
+                                <h3 class="font-bold text-lg mt-8 mb-4">Tags Skill (Bubbles)</h3>
+                                <input :value="site.skills.tags.join(', ')" @input="site.skills.tags = $event.target.value.split(',').map(x=>x.trim())" class="w-full border rounded p-2" placeholder="Cth: Ajax, GIT, REST API">
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-2xl border">
+                                <h3 class="font-bold text-lg mb-4">Soft Skills (Boxes)</h3>
+                                <div v-for="(skill, i) in site.skills.soft" :key="i" class="mb-4 border-b pb-4 relative">
+                                    <button @click="site.skills.soft.splice(i,1)" class="absolute top-0 right-0 text-red-500 font-bold">✕</button>
+                                    <input v-model="skill.title" class="w-3/4 border rounded p-1 mb-2 font-bold" placeholder="Judul">
+                                    <input v-model="skill.desc" class="w-full border rounded p-1 text-sm" placeholder="Deskripsi Singkat">
+                                </div>
+                                <button @click="site.skills.soft.push({title:'', desc:''})" class="text-blue-600 font-bold">+ Tambah Soft Skill</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EXPERIENCE TAB -->
+                    <div v-else-if="activeTab === 'experience'" key="experience" class="space-y-6">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">Pengalaman Karir</h2>
+                        <div v-for="(exp, i) in site.experience" :key="i" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-4 relative">
+                            <button @click="site.experience.splice(i,1)" class="absolute top-4 right-4 text-red-500 font-bold">✕</button>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="col-span-2 md:col-span-1"><label class="text-xs">Jabatan</label><input v-model="exp.title" class="w-full border rounded p-2"></div>
+                                <div class="col-span-2 md:col-span-1"><label class="text-xs">Perusahaan</label><input v-model="exp.company" class="w-full border rounded p-2"></div>
+                                <div class="col-span-2 md:col-span-1"><label class="text-xs">Waktu</label><input v-model="exp.period" class="w-full border rounded p-2"></div>
+                                <div class="col-span-2 md:col-span-1"><label class="text-xs">Teks Badge (Contoh: "Saat ini")</label><input v-model="exp.badge" class="w-full border rounded p-2"></div>
+                                <div class="col-span-2"><label class="text-xs">Deskripsi Kerja</label><textarea v-model="exp.desc" rows="3" class="w-full border rounded p-2"></textarea></div>
+                            </div>
+                        </div>
+                        <button @click="site.experience.unshift({title:'', company:'', period:'', badge:'', desc:''})" class="py-3 px-6 bg-slate-200 rounded-xl font-bold">+ Tambah Riwayat Mentok Atas</button>
+                    </div>
+
+                    <!-- PORTFOLIO TAB -->
+                    <div v-else-if="activeTab === 'portfolio'" key="portfolio" class="space-y-6">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">Portofolio & Project</h2>
+                        
+                        <!-- Featured -->
+                        <div class="bg-white p-6 rounded-2xl border mb-8">
+                            <h3 class="font-bold text-xl mb-4 text-blue-600">Featured Projects (Cards)</h3>
+                            <div v-for="(p, i) in site.portfolio.featured" :key="i" class="p-4 border border-dashed rounded-xl mb-4 relative bg-slate-50">
+                                <button @click="site.portfolio.featured.splice(i,1)" class="absolute top-2 right-2 text-red-500 font-bold px-2 py-1 bg-red-100 rounded">Hapus</button>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mr-10">
+                                    <div class="col-span-2 md:col-span-1"><label class="text-xs font-bold">Judul</label><input v-model="p.title" class="w-full border rounded p-2"></div>
+                                    <div class="col-span-2 md:col-span-1"><label class="text-xs font-bold">Link Gambar URL</label><input v-model="p.image" class="w-full border rounded p-2"></div>
+                                    <div class="col-span-2"><label class="text-xs font-bold">Deskripsi Singkat</label><textarea v-model="p.description" rows="2" class="w-full border rounded p-2"></textarea></div>
+                                    <div class="col-span-2 md:col-span-1"><label class="text-xs font-bold">List Fitur (Koma)</label><input :value="p.features.join(', ')" @input="p.features = $event.target.value.split(',').map(x=>x.trim())" class="w-full border rounded p-2"></div>
+                                    <div class="col-span-2 md:col-span-1"><label class="text-xs font-bold">Tech Stack (Koma)</label><input :value="p.stack.join(', ')" @input="p.stack = $event.target.value.split(',').map(x=>x.trim())" class="w-full border rounded p-2"></div>
+                                </div>
+                            </div>
+                            <button @click="site.portfolio.featured.push({title:'', description:'', image:'', features:[], stack:[]})" class="text-blue-600 font-bold">+ Tambah Featured</button>
+                        </div>
+
+                        <!-- Banking -->
+                        <div class="bg-white p-6 rounded-2xl border mb-8">
+                            <h3 class="font-bold text-xl mb-4 text-green-600">Banking Projects (Tabel Panjang)</h3>
+                            <div class="max-h-96 overflow-y-auto pr-2 border-l-4 pl-3 border-emerald-400">
+                                <div v-for="(b, i) in site.portfolio.banking" :key="i" class="flex gap-2 mb-2 items-center bg-gray-50 p-2 rounded">
+                                    <input v-model="b.name" class="flex-1 w-1/3 border rounded p-1 text-sm" placeholder="Nama BPR">
+                                    <input v-model="b.type" class="w-1/4 border rounded p-1 text-sm" placeholder="Upload/Peralihan">
+                                    <input v-model="b.period" class="w-1/4 border rounded p-1 text-sm" placeholder="Tahun/Waktu">
+                                    <select v-model="b.status" class="w-24 border rounded p-1 text-sm">
+                                        <option value="Selesai">Selesai</option>
+                                        <option value="Berjalan">Berjalan</option>
+                                    </select>
+                                    <button @click="site.portfolio.banking.splice(i,1)" class="text-red-500 font-bold w-6">✕</button>
+                                </div>
+                            </div>
+                            <button @click="site.portfolio.banking.unshift({name:'', type:'Peralihan Sistem', period:'', status:'Berjalan'})" class="text-green-600 font-bold mt-4">+ Tambah Tabel Banking di Atas</button>
+                        </div>
+                        
+                        <!-- Government -->
+                        <div class="bg-white p-6 rounded-2xl border">
+                            <h3 class="font-bold text-xl mb-4 text-purple-600">Government Projects (Cards)</h3>
+                            <div v-for="(g, i) in site.portfolio.government" :key="i" class="p-4 border rounded-xl mb-2 relative">
+                                <button @click="site.portfolio.government.splice(i,1)" class="absolute top-2 right-2 text-red-500 font-bold bg-white p-1 rounded">✕</button>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <input v-model="g.title" class="col-span-1 border rounded p-2 text-sm" placeholder="Instalasi Mesin">
+                                    <input v-model="g.location" class="col-span-1 border rounded p-2 text-sm" placeholder="Lokasi">
+                                    <input v-model="g.period" class="col-span-1 border rounded p-2 text-sm" placeholder="Bulan Tahun">
+                                    <textarea v-model="g.desc" class="col-span-3 border rounded p-2 text-sm" placeholder="Deskripsi"></textarea>
+                                </div>
+                            </div>
+                            <button @click="site.portfolio.government.push({title:'', location:'', period:'', desc:''})" class="text-purple-600 font-bold mt-4">+ Tambah Government Project</button>
+                        </div>
+                    </div>
+
+                    <!-- CONTACT TAB -->
+                    <div v-else-if="activeTab === 'contact'" key="contact" class="space-y-6">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">Kontak</h2>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div class="grid grid-cols-1 gap-4">
+                                <div><label class="block text-sm font-medium mb-1">Email 1</label>
+                                <input v-model="site.contact.email_1" class="w-full border rounded-lg p-2"></div>
+                                <div><label class="block text-sm font-medium mb-1">Email 2</label>
+                                <input v-model="site.contact.email_2" class="w-full border rounded-lg p-2"></div>
+                                <div><label class="block text-sm font-medium mb-1">Nomor WA / Telp</label>
+                                <input v-model="site.contact.phone" class="w-full border rounded-lg p-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </Transition>
+                <div class="h-20"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    loading: true,
+                    activeTab: 'hero',
+                    tabs: [
+                        { id: 'hero', name: 'Beranda (Hero)', icon: '🚀' },
+                        { id: 'about', name: 'Tentang Saya', icon: '👤' },
+                        { id: 'services', name: 'Layanan', icon: '🛠️' },
+                        { id: 'skills', name: 'Keahlian', icon: '⚡' },
+                        { id: 'experience', name: 'Pengalaman', icon: '⏳' },
+                        { id: 'portfolio', name: 'Portofolio', icon: '📁' },
+                        { id: 'contact', name: 'Kontak', icon: '📞' }
+                    ],
+                    site: {
+                        hero: {},
+                        about: { details: {}, education: [] },
+                        services: [],
+                        skills: { technical: [], tags: [], soft: [] },
+                        experience: [],
+                        portfolio: { featured: [], banking: [], government: [] },
+                        contact: {}
+                    }
+                }
+            },
+            mounted() {
+                fetch('data/site.json')
+                    .then(res => {
+                        if (!res.ok) throw new Error("HTTP error " + res.status);
+                        return res.json();
+                    })
+                    .then(data => {
+                        this.site = data;
+                    })
+                    .catch(err => {
+                        alert('Gagal meload data/site.json (CORS / File Protocol Error). Pastikan Anda membuka melalui http://localhost/');
+                        console.error(err);
+                    })
+                    .finally(() => {
+                        this.loading = false;
+                    });
+            },
+            methods: {
+                downloadJson() {
+                    const dataStr = JSON.stringify(this.site, null, 2);
+                    const blob = new Blob([dataStr], { type: "application/json" });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'site.json';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    alert("✅ File site.json berhasil di-download!\nTimpa file lama di folder 'data' dengan file ini.");
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
