@@ -1,0 +1,320 @@
+{
+  "hero": {
+    "headline_1": "Praktisi IT & ",
+    "headline_2": "Web Developer",
+    "headline_3": " Profesional",
+    "subtitle": "Solusi digital lengkap untuk kebutuhan personal dan bisnis Anda. Spesialis dalam Pengembangan Sistem Perbankan, Web Development, dan IT Support.",
+    "profile_image": "https://media.licdn.com/dms/image/v2/D5603AQEfOaJDGQEZyA/profile-displayphoto-shrink_200_200/B56ZSLkONRH0AY-/0/1737508316588?e=2147483647&v=beta&t=qoLTJ5dlHDGawuKwQat23b4do88HzGWraDttLkmvAqw",
+    "large_image": "https://i.ibb.co.com/TD0GqTTv/IMG-2602.jpg",
+    "stats": [
+      {
+        "value": "5+",
+        "label": "Tahun Pengalaman"
+      },
+      {
+        "value": "50+",
+        "label": "Project Selesai"
+      },
+      {
+        "value": "100+",
+        "label": "Client Puas"
+      }
+    ],
+    "floating_cards": [
+      {
+        "title": "Tersertifikasi",
+        "subtitle": "IT Professional"
+      },
+      {
+        "title": "Full Stack",
+        "subtitle": "Developer"
+      }
+    ]
+  },
+  "about": {
+    "description": "Seorang praktisi IT berusia 26 tahun yang berfokus pada edukasi teknologi dan pengembangan sistem. Saat ini bekerja sebagai Trainer IT profesional dan sedang menempuh S1 Sistem Informasi (Online). Memiliki passion dalam membangun solusi web yang efisien menggunakan PHP Framework dan membantu UMKM go-digital. Saya percaya bahwa teknologi harus bisa diakses dan dipahami oleh semua orang.",
+    "details": {
+      "nama": "Mohammad Syawaludin Zuhri",
+      "profesi": "IT Trainer & Web Developer",
+      "lokasi": "Malang, Jawa Timur",
+      "umur": "26 Tahun"
+    },
+    "education": [
+      {
+        "status": "Sedang Berlangsung",
+        "degree": "S1 Sistem Informasi",
+        "school": "Kuliah Online",
+        "desc": "Fokus: Manajemen waktu efektif & kemandirian belajar"
+      },
+      {
+        "status": "Juni 2015 - April 2018",
+        "degree": "SMK Negeri 4 Malang",
+        "school": "Jurusan Teknologi Informasi",
+        "desc": "Dasar-dasar pemrograman dan jaringan komputer"
+      }
+    ]
+  },
+  "services": [
+    {
+      "title": "Web Development",
+      "description": "Pembuatan website profesional, aplikasi kasir/POS custom, dan landing page untuk bisnis Anda.",
+      "items": [
+        "Company Profile",
+        "Landing Page",
+        "Aplikasi Kasir/POS"
+      ]
+    },
+    {
+      "title": "IT Support",
+      "description": "Jasa maintenance dan troubleshooting komputer untuk performa optimal.",
+      "items": [
+        "Install Ulang Windows",
+        "Troubleshooting Software",
+        "Optimasi Performa"
+      ]
+    },
+    {
+      "title": "Desain & Cetak",
+      "description": "Layanan desain dan cetak untuk kebutuhan promosi UMKM Anda.",
+      "items": [
+        "Cetak Dokumen",
+        "Scan Dokumen",
+        "Cetak Banner UMKM"
+      ]
+    }
+  ],
+  "skills": {
+    "technical": [
+      {
+        "name": "IT Support & Troubleshooting",
+        "percent": 90
+      },
+      {
+        "name": "PHP & CodeIgniter 4",
+        "percent": 85
+      },
+      {
+        "name": "HTML, CSS & JavaScript",
+        "percent": 80
+      },
+      {
+        "name": "MySQL Database",
+        "percent": 75
+      },
+      {
+        "name": "WordPress Development",
+        "percent": 70
+      }
+    ],
+    "tags": [
+      "Ajax",
+      "JScript",
+      "REST API",
+      "Git"
+    ],
+    "soft": [
+      {
+        "title": "Komunikasi",
+        "desc": "Menyampaikan informasi dengan jelas"
+      },
+      {
+        "title": "Problem Solving",
+        "desc": "Analisis dan solusi kreatif"
+      },
+      {
+        "title": "Teaching",
+        "desc": "Membimbing dengan sabar"
+      },
+      {
+        "title": "Detail-Oriented",
+        "desc": "Teliti dalam setiap aspek"
+      },
+      {
+        "title": "Time Management",
+        "desc": "Mengelola waktu secara efektif untuk mencapai target dengan tepat waktu"
+      }
+    ]
+  },
+  "experience": [
+    {
+      "badge": "Saat Ini",
+      "title": "Junior Programmer & Trainer",
+      "company": "PT. Assist Software Indonesia Pratama",
+      "period": "Okt 2020 - Sekarang",
+      "desc": "Kustomisasi program (PHP, JS, Ajax, MySQL), Pendampingan live operasional sistem core banking, Konfigurasi sistem awal, Implementasi upgrade, Konsultan user terkait SOP Bank (POJK)."
+    },
+    {
+      "badge": "",
+      "title": "Technical Support Specialist",
+      "company": "Fingerspot Indonesia",
+      "period": "Apr 2019 - Okt 2020 • 1 tahun 7 bulan",
+      "desc": "Instalasi & setting mesin absensi, Training customer penggunaan sistem, Pasang akses pintu elektronik."
+    },
+    {
+      "badge": "",
+      "title": "Technical Support Specialist",
+      "company": "PT. Satu Group (SMAN 2 Malang)",
+      "period": "Juli 2018 - Maret 2019 • 9 bulan",
+      "desc": "Operator fingerprint, Hardware/software maintenance, Teknisi CCTV & dasar jaringan."
+    },
+    {
+      "badge": "",
+      "title": "Customer Service Staff",
+      "company": "PT. Tiki JNE",
+      "period": "Juni 2018 • 1 bulan",
+      "desc": "Admin & Kurir, Pelayanan pelanggan."
+    },
+    {
+      "badge": "Magang",
+      "title": "Junior Technical Support",
+      "company": "Fingerspot Indonesia",
+      "period": "Nov 2016 - Nov 2017 • 1 tahun",
+      "desc": "Program magang, Belajar dasar technical support dan sistem absensi."
+    }
+  ],
+  "portfolio": {
+    "featured": [
+      {
+        "title": "Aplikasi POS Kasir",
+        "description": "Sistem Point of Sales lengkap untuk usaha kuliner dengan fitur transaksi kasir real-time, manajemen stok otomatis, dan laporan keuangan terintegrasi.",
+        "image": "https://i.ibb.co.com/Lzbm69Fw/Screenshot-2026-02-11-224915.png",
+        "features": [
+          "Transaksi Kasir Realtime",
+          "Manajemen Stok Otomatis",
+          "Laporan Keuangan Lengkap",
+          "Cetak Struk Otomatis"
+        ],
+        "stack": [
+          "CodeIgniter 4",
+          "MySQL",
+          "PHP",
+          "JavaScript"
+        ]
+      }
+    ],
+    "banking": [
+      {
+        "name": "BPR Sri Partha (Bali)",
+        "type": "Upgrade Sistem",
+        "period": "Maret 2026 - Sekarang",
+        "status": "Berjalan"
+      },
+      {
+        "name": "BPR Syariah Perseroda Lampung Timur",
+        "type": "Peralihan Sistem",
+        "period": "Feb 2026 - Maret 2026",
+        "status": "Berjalan"
+      },
+      {
+        "name": "BPR Arta Mas Surakarta (Solo)",
+        "type": "Peralihan Sistem",
+        "period": "Nov 2025 - Des 2025",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Sekar Kaltim (Samarinda)",
+        "type": "Upgrade Sistem",
+        "period": "Sep 2025 - Okt 2025",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Bhapertim Persada (Jatim)",
+        "type": "Upgrade Sistem",
+        "period": "Jul 2025 - Agu 2025",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Palu Anugerah (Sulteng)",
+        "type": "Upgrade Sistem",
+        "period": "Mei 2025 - Jun 2025",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Perseroda Buleleng (Bali)",
+        "type": "Upgrade Sistem",
+        "period": "Jan 2025 - Feb 2025",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Bontang Sejahtera (Kaltim)",
+        "type": "Peralihan Sistem",
+        "period": "Okt 2024 - Nov 2024",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Arthaya Indotama Pusaka",
+        "type": "Peralihan Sistem",
+        "period": "Agu 2024 - Sep 2024",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Raga Surya Nuansa (Ponorogo)",
+        "type": "Peralihan Sistem",
+        "period": "Jun 2024 - Jul 2024",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Syariah Perseroda Kab Ngawi",
+        "type": "Peralihan Sistem",
+        "period": "Mei 2024 - Jun 2024",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Arta Kencana (Madiun)",
+        "type": "Peralihan Sistem",
+        "period": "Feb 2024 - Mar 2024",
+        "status": "Selesai"
+      },
+      {
+        "name": "Merger Bank BPR Danagung (Yogyakarta)",
+        "type": "Merger Integration",
+        "period": "Nov 2023 - Des 2023",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Bangun Permata Karsa (Samarinda)",
+        "type": "Peralihan Sistem",
+        "period": "Sep 2023 - Okt 2023",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Artha Waringin Jaya (Situbondo)",
+        "type": "Peralihan Sistem",
+        "period": "Nov 2021 - Des 2021",
+        "status": "Selesai"
+      },
+      {
+        "name": "Koperasi Dipo Melo Finance (Palu)",
+        "type": "Peralihan Sistem",
+        "period": "Jul 2021",
+        "status": "Selesai"
+      },
+      {
+        "name": "BPR Tanggul Makmur (Jember)",
+        "type": "Peralihan Sistem",
+        "period": "Apr 2021 - Mei 2021",
+        "status": "Selesai"
+      }
+    ],
+    "government": [
+      {
+        "title": "Instalasi Mesin Absensi",
+        "location": "Kota Lebong, Bengkulu",
+        "period": "Agustus 2019",
+        "desc": "Instalasi dan konfigurasi sistem absensi fingerprint untuk instansi pemerintahan."
+      },
+      {
+        "title": "Instalasi Mesin Absensi",
+        "location": "Kota Probolinggo, Jatim",
+        "period": "Maret 2019",
+        "desc": "Instalasi dan konfigurasi sistem absensi fingerprint untuk instansi pemerintahan."
+      }
+    ]
+  },
+  "contact": {
+    "email_1": "msyawaludin.22@gmail.com",
+    "email_2": "zuhrisyawal@gmail.com",
+    "phone": "+62823342385001",
+    "location": "Malang, Jawa Timur, Indonesia"
+  }
+}
