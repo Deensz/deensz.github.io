@@ -1,6 +1,6 @@
 {
   "hero": {
-    "headline_1": "Praktisi IT & ",
+    "headline_1": "IT ",
     "headline_2": "Web Developer",
     "headline_3": " Profesional",
     "subtitle": "Solusi digital lengkap untuk kebutuhan personal dan bisnis Anda. Spesialis dalam Pengembangan Sistem Perbankan, Web Development, dan IT Support.",
@@ -109,8 +109,8 @@
     "tags": [
       "Ajax",
       "JScript",
-      "REST API",
-      "Git"
+      "Git",
+      ""
     ],
     "soft": [
       {
@@ -180,8 +180,8 @@
         "image": "https://i.ibb.co.com/Lzbm69Fw/Screenshot-2026-02-11-224915.png",
         "features": [
           "Transaksi Kasir Realtime",
-          "Manajemen Stok Otomatis",
-          "Laporan Keuangan Lengkap",
+          "",
+          "Laporan Omset Lengkap",
           "Cetak Struk Otomatis"
         ],
         "stack": [
@@ -312,9 +312,9 @@
     ]
   },
   "contact": {
-    "email_1": "msyawaludin.22@gmail.com",
+    "email_1": "msyawaludinz.22@gmail.com",
     "email_2": "zuhrisyawal@gmail.com",
-    "phone": "+62823342385001",
+    "phone": "+6282334238500",
     "location": "Malang, Jawa Timur, Indonesia"
   }
 }
