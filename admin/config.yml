@@ -3,7 +3,7 @@ backend:
   repo: deensz/deensz.github.io
   branch: main
   base_url: https://deensz.github.io
-  app_id: Ov23lizEY6InHYihcPCG
+  app_id: "Ov23lizEY6InHYihcPCG"
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
